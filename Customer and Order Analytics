@@ -30,7 +30,7 @@ FROM BIT_DB.jansales
 Group BY Product;
 
 #6. Which products were sold in February at 548 Lincoln St, Seattle, WA 98101, how many of each were sold, and what was the total revenue?
-Select product, location, quantity, sum(quantity * price) 
+Select product, location, quantity, sum(quantity * price) as revenue 
 FRom BIT_DB.febsales
 WHERE location ='548 Lincoln St, Seattle, WA 98101'
 Group by product;
