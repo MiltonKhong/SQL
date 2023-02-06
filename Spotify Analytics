@@ -1,0 +1,94 @@
+# I downloaded Spotify data from Kaggle for this project.
+# Then I created a table to insert Spotify data into.
+# Finally, I performed analytics on the data using SQL. 
+
+#Creating the table: 
+CREATE TABLE BIT_DB.Spotifydata (
+id integer PRIMARY KEY,
+artist_name varchar NOT NULL,
+track_name varchar NOT NULL,
+track_id varchar NOT NULL,
+popularity integer NOT NULL,
+danceability decimal(4,3) NOT NULL,
+energy decimal(4,3) NOT NULL,
+key integer NOT NULL,
+loudness decimal(5,3) NOT NULL,
+mode integer NOT NULL,
+speechiness decimal(5,4) NOT NULL,
+acousticness decimal(6,5) NOT NULL,
+instrumentalness text NOT NULL,
+liveness decimal(5,4) NOT NULL,
+valence decimal(4,3) NOT NULL,
+tempo decimal(6,3) NOT NULL,
+duration_ms integer NOT NULL,
+time_signature integer NOT NULL 
+)
+
+#Then I inserted the Spotify Data .csv into the table.
+
+#Next, I explored the data using the following SQL. 
+
+#First I determined the avg popularity, danceability, and energy by artist.
+SELECT
+artist_name,
+
+avg(popularity),
+avg(danceability),
+avg(energy)
+FROM BIT_DB.spotifydata
+GROUP BY artist_name;
+
+
+#Then I determined who the Top 20 artists are by popularity.
+SELECT track_name, artist_name, popularity
+FROM BIT_DB.spotifydata
+ORDER BY popularity desc
+LIMIT 20
+
+
+# Next I wanted to determine which artist had multiple top songs.
+SELECT artist_name, count(track_name) as number_tracks
+FROM Spotifydata 
+GROUP BY artist_name 
+Having Count(track_name) >1
+ORDER BY count(track_name);
+
+# Which Artist had the longest song?
+SELECT artist_name as Artist,
+track_name as Song, 
+popularity,
+duration_ms as Duration 
+FROM BIT_DB.spotifydata
+WHERE duration_ms =  (select max(duration_ms)
+FROM BIT_DB.spotifydata)
+
+
+# Which song was the shortest?
+SELECT MIN(duration_ms/60000) AS shortest_songs, 
+track_name,
+artist_name,
+popularity,
+MAX(danceability)AS most_danceable
+FROM BIT_DB.Spotifydata
+GROUP BY track_name limit 1;
+
+# Compare the top songs and how they stack
+SELECT track_name as Song, popularity,
+CASE 
+WHEN popularity > (SELECT avg(popularity) FROM BIT_DB.Spotifydata) THEN 'Hit Song'
+WHEN popularity = (SELECT avg(popularity) FROM BIT_DB.Spotifydata) THEN 'Avg Song'
+WHEN popularity < (SELECT avg(popularity) FROM BIT_DB.Spotifydata) THEN 'Likable Song'
+END as Rating,
+CASE
+WHEN danceability > (SELECT avg(danceability) FROM BIT_DB.spotifydata) THEN 'Upbeat'
+WHEN danceability = (SELECT avg(danceability) FROM BIT_DB.spotifydata) THEN 'Moderate'
+WHEN danceability < (SELECT avg(danceability) FROM BIT_DB.spotifydata) THEN 'Slow'
+End as Tempo,
+CASE 
+WHEN speechiness > (SELECT avg(speechiness) FROM BIT_DB.spotifydata) THEN 'Lyrical'
+WHEN speechiness = (SELECT avg(speechiness) FROM BIT_DB.spotifydata) THEN 'Vocal'
+WHEN speechiness < (SELECT avg(speechiness) FROM BIT_DB.spotifydata) THEN 'Musical'
+END AS Words
+FROM BIT_DB.Spotifydata
+GROUP BY Song
+HAVING popularity = 95;
