@@ -1,0 +1,49 @@
+/* Put your data in here and query it! */
+
+/*
+ Countries and dependent territories, 2020
+ Data adapted from
+ http://www.worldometers.info/world-population/population-by-country/
+ Does not include rows which had "N.A." values, so some territories are missing.
+ Data collected by https://gist.github.com/pamelafox/ad4f6abbaac0a48aa781
+ */
+
+
+1.What are average, max, and min values in the data?
+
+SELECT AVG(population) FROM countries;
+
+SELECT name, max(population) FROM countries;
+
+SELECT name, min(population) FROM countries;
+
+SELECT MAX(percent_of_world_pop) FROM countries;
+
+SELECT MAX(fertility_rate), name FROM countries;
+
+SELECT MIN(fertility_rate), name FROM countries;
+
+SELECT MIN(median_age) FROM countries;
+
+2. What countries have a population over the 2,000,000?
+
+SELECT name, AVG(population) AS Avg_population FROM countries GROUP BY name HAVING Avg_population > 2000000;
+
+3.Categorize countries with fertility rate by color.
+
+SELECT name, 
+    CASE
+        WHEN fertility_rate > 10 THEN "GREEN"
+        WHEN fertility_rate > 8 THEN "YELLOW"
+        WHEN fertility_rate > 3 THEN "ORANGE"
+        ELSE "RED"
+    END AS fertility_status
+FROM countries;
+
+4. Find the countries that has between 10,000 sq km and 200,000.
+
+SELECT name, area_sq_km FROM countries WHERE area_sq_km >10000 AND area_sq_km < 200000;
+
+5. What are the fertility rates of countries with a population greater than 2 million and a net migration rate greater than 60,000?
+
+SELECT name, fertility_rate FROM countries WHERE population_change > 2 or net_migrants > 60000;
