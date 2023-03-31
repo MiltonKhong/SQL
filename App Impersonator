@@ -1,0 +1,51 @@
+/* Create an app that stores your data in a SQL database, and write SQL statments in what that app's SQL might look like. */
+
+/* Creating the data*/
+
+CREATE TABLE users (id INTEGER PRIMARY KEY,
+    first_name TEXT,
+    last_name TEXT,
+    email TEXT,
+    age INTEGER,
+    occupation TEXT);
+
+INSERT into users (first_name, last_name, email, age, occupation) VALUES ("Thomas", "Grant", "ThomasGrant55@email.com", 29, "Medical Resident");
+INSERT into users (first_name, last_name, email, age, occupation) VALUES ("Bella", "George", "BellaBallet@email.com", 35, "Dancer");
+INSERT into users (first_name, last_name, email, age, occupation) VALUES ("Mike", "Polo", "Marcopolo@email.com", 20, "Student");
+INSERT into users (first_name, last_name, email, age, occupation) VALUES ("Patricia", "Bloom", "Flowerbloom@email.com", 29, "Human Resources");
+INSERT into users (first_name, last_name, email, age, occupation) VALUES ("Kim", "Sharpe", "Sharpe22@email.com", 24, "Sales");
+INSERT into users (first_name, last_name, email, age, occupation) VALUES ("Brian", "Emeria", "EB34@email.com", 38, "Lawyer");
+
+SELECT * FROM users;
+
+/** Brian has submitted a change and corrected his email **/
+
+UPDATE users SET email = "BrianEm@email.com" WHERE first_name = "Brian";
+
+/** Mike has submitted a request to delete his account along with all data **/
+
+DELETE FROM users where first_name = "Mike";
+
+/* Created new tables for acivites. */
+
+CREATE TABLE daily_activities (id INTEGER PRIMARY KEY,
+    hrs_slept INTEGER,
+    hrs_worked INTEGER,
+    screen_time INTEGER,
+    exhaustion TEXT);
+    
+INSERT INTO daily_activities (hrs_slept, hrs_worked, screen_time, exhaustion) VALUES (6, 14, 4, "exhausted");
+INSERT INTO daily_activities (hrs_slept, hrs_worked, screen_time, exhaustion) VALUES (8, 6, 8, "energized");
+INSERT INTO daily_activities (hrs_slept, hrs_worked, screen_time, exhaustion) VALUES (7, 8, 9,"rested");
+INSERT INTO daily_activities (hrs_slept, hrs_worked, screen_time, exhaustion) VALUES (7, 12, 4, "exhausted");
+INSERT INTO daily_activities (hrs_slept, hrs_worked, screen_time, exhaustion) VALUES (5, 14, 5, "exhausted");
+
+ALTER TABLE daily_activities add date TEXT default "Not Provided";
+SELECT * FROM daily_activities;
+
+UPDATE daily_activities set date = "2023-01-04" WHERE id = 1;
+UPDATE daily_activities set date = "2023-01-04" WHERE id = 2;
+UPDATE daily_activities set date = "2023-01-04" WHERE id = 3;
+UPDATE daily_activities set date = "2023-01-04" WHERE id = 4;
+UPDATE daily_activities set date = "2023-01-04" WHERE id = 5;
+SELECT * FROM daily_activities;
