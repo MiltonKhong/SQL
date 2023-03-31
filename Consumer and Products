@@ -1,3 +1,6 @@
+/*In this file, I examine a dataset called chinook, which represents a digital media store and includes tables for artists,
+albums, media tracks, invoices, and customers. See my work below*/
+
 1.Show Customers (their full names, customer ID, and country) who are not in the US. 
 SELECT firstname, lastname, customerid, country FROM customers
 WHERE country <> 'USA';
