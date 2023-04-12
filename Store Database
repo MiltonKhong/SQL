@@ -1,0 +1,26 @@
+/* Create a electronic store database with statistics */
+
+CREATE TABLE phones (id INTEGER PRIMARY KEY, name TEXT, os TEXT, quantity INTEGER, price INTEGER);
+INSERT INTO phones VALUES (1, "Iphone 14 PRO", "IOS", 100, 999);
+INSERT INTO phones VALUES (2, "Iphone 14", "IOS", 60, 699);
+INSERT INTO phones VALUES (3, "Iphone 13 PRO", "IOS", 70, 799);
+INSERT INTO phones VALUES (4, "Iphone 13", "IOS", 20, 599);
+INSERT INTO phones VALUES (5, "Iphone 12", "IOS", 5, 499);
+INSERT INTO phones VALUES (6, "Samsung Galaxy S22 ULTRA", "Andriod", 100, 1199);
+INSERT INTO phones VALUES (7, "Samsung Galaxy S22", "Andriod", 80, 999);
+INSERT INTO phones VALUES (8, "Samsung Galaxy Z Flip 4", "Andriod", 40, 1179);
+INSERT INTO phones VALUES (9, "Samsung Galaxy Z Fold 4", "Andriod", 40, 1099);
+INSERT INTO phones VALUES (10, "Samsung Galaxy A53" , "Andriod", 60, 369);
+INSERT INTO phones VALUES (11, "Google Pixel 6a", "Andriod", 65, 449);
+INSERT INTO phones VALUES (12, "Google Pixel 7 PRO", "Andriod", 33, 899);
+INSERT INTO phones VALUES (13, "Google Pixel 7", "Andriod", 68, 599);
+INSERT INTO phones VALUES (14, "One Plus 10 PRO", "Oxygen", 26, 799);
+INSERT INTO phones VALUES (15, "One Plus 10T", "Oxygen", 29, 549);
+
+SELECT * FROM phones
+ORDER BY price desc;
+
+SELECT * from phones where price < 600
+Order by quantity desc;
+
+SELECT Sum(quantity) from phones
