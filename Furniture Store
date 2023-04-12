@@ -122,25 +122,25 @@ SELECT ID,
 transaction_date, product, price, payment_type, name, city, state, country
 FROM sales;
 
-2.Return average revenue of sales by product*/
+2.Return average revenue of sales by product
 SELECT product, AVG(price)
 FROM sales
 GROUP BY product;
 
 
-3.Return maximum revenue of sales by product*/
+3.Return maximum revenue of sales by product
 SELECT product, MAX(price)
 FROM sales
 GROUP BY product;
 
 
-4.Return minimum revenue of sales by product*/
+4.Return minimum revenue of sales by product
 SELECT product, MIN(price)
 FROM sales
 GROUP BY product;
 
 
-5. Return count of payment_type in each country*/
+5. Return count of payment_type in each country
 SELECT COUNT(payment_type), payment_type, country
 FROM sales
 GROUP BY country
@@ -148,20 +148,21 @@ HAVING COUNT(payment_type)
 ORDER BY country;
 
 
-6.Return product sales in United Kingdom and United States*/
+6.Return product sales in United Kingdom and United States
 SELECT DISTINCT country, product
 FROM sales
 WHERE country IN ('United states', 'United Kingdom');
 
-7.Return discounts by payment_type*/
+7.Return discounts by payment_type
 SELECT ID, name, payment_type, product, price, city, country,
-	CASE
-		WHEN payment_type = 'Mastercard' THEN 'Disc 10'
-        WHEN payment_type = 'Visa' THEN 'Disc 25'
-        ELSE 'Disc 50'
-	END AS Discount
-    FROM sales;
-8. Return location*/
+CASE
+WHEN payment_type = 'Mastercard' THEN 'Disc 10'
+WHEN payment_type = 'Visa' THEN 'Disc 25'
+ELSE 'Disc 50'
+END AS Discount
+FROM sales;
+    
+8. Return profitablity by location
 SELECT city, state, country, SUM(price) AS total_profit
 FROM sales
 GROUP BY city, state, country
